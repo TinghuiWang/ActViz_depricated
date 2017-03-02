@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{2767c832-6003-40ae-b204-28f990f66ba1}</ProjectGuid>
+    <ProjectGuid>{2767C832-6003-40AE-B204-28F990F66BA1}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ActViz</RootNamespace>
@@ -16,9 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    
     <PackageCertificateKeyFile>ActViz_TemporaryKey.pfx</PackageCertificateKeyFile>
-    
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,8 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -94,21 +97,103 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisPage.xaml.cs">
+      <DependentUpon>AnalysisPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigPage.xaml.cs">
+      <DependentUpon>ConfigPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigPanels\ActivityConfigPanel.xaml.cs">
+      <DependentUpon>ActivityConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigPanels\GeneralConfigPanel.xaml.cs">
+      <DependentUpon>GeneralConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigPanels\ResidentConfigPanel.xaml.cs">
+      <DependentUpon>ResidentConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DateSlider.cs" />
+    <Compile Include="Converters\ActivityCountToWidth.cs" />
+    <Compile Include="Converters\ActivityNameToColor.cs" />
+    <Compile Include="Converters\BoolToVisibility.cs" />
+    <Compile Include="Converters\ColorToString.cs" />
+    <Compile Include="Converters\DateTimeToString.cs" />
+    <Compile Include="Converters\DoubleToPercent.cs" />
+    <Compile Include="Converters\IntToString.cs" />
+    <Compile Include="Converters\ColorStringTupleCastToColor.cs" />
+    <Compile Include="Converters\IsErrorToColor.cs" />
+    <Compile Include="Converters\ObjectCastToColor.cs" />
+    <Compile Include="Converters\ResidentNameToColor.cs" />
+    <Compile Include="Converters\SelectedIndexToBoolean.cs" />
+    <Compile Include="DatasetPage.xaml.cs">
+      <DependentUpon>DatasetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddActivityDialog.xaml.cs">
+      <DependentUpon>AddActivityDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddResidentDialog.xaml.cs">
+      <DependentUpon>AddResidentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddSensorDialog.xaml.cs">
+      <DependentUpon>AddSensorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AnalysisConfigDialog.xaml.cs">
+      <DependentUpon>AnalysisConfigDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AnalysisFilterDialog.xaml.cs">
+      <DependentUpon>AnalysisFilterDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigActivityDialog.xaml.cs">
+      <DependentUpon>ConfigActivityDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigResidentDialog.xaml.cs">
+      <DependentUpon>ConfigResidentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigSensorDialog.xaml.cs">
+      <DependentUpon>ConfigSensorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DatasetImportDialog.xaml.cs">
+      <DependentUpon>DatasetImportDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditView.xaml.cs">
+      <DependentUpon>EditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventPage.xaml.cs">
+      <DependentUpon>EventPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\AnnotationFile.cs" />
+    <Compile Include="Models\ClassifiedLabel.cs" />
+    <Compile Include="Models\Dataset.cs" />
+    <Compile Include="Models\RecentDatasets.cs" />
+    <Compile Include="Models\Resident.cs" />
+    <Compile Include="Models\Sensor.cs" />
+    <Compile Include="Models\SensorEvent.cs" />
+    <Compile Include="Models\SensorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\ClassifiedLabelViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\NotificationBase.cs" />
+    <Compile Include="ViewModels\ResidentViewModel.cs" />
+    <Compile Include="ViewModels\SensorEventCollection.cs" />
+    <Compile Include="ViewModels\SensorEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    
     <None Include="ActViz_TemporaryKey.pfx" />
-    
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -125,16 +210,87 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AnalysisPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigPanels\ActivityConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigPanels\GeneralConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigPanels\ResidentConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DatasetPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\AddActivityDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddResidentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddSensorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\AnalysisConfigDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AnalysisFilterDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ConfigActivityDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ConfigResidentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ConfigSensorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DatasetImportDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

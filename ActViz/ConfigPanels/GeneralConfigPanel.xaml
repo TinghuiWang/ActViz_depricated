@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="ActViz.ConfigPanels.GeneralConfigPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ActViz.ConfigPanels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:ActViz.Converters"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BoolToVisibility x:Key="BoolToVisibility"></converters:BoolToVisibility>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Dataset Name: " Margin="5" VerticalAlignment="Center"></TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" PlaceholderText="Name of Dataset" Margin="5" VerticalAlignment="Center" Text="{x:Bind _home.DatasetName, Mode=OneTime}" TextChanged="TextBox_TextChanged"></TextBox>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="*" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Orange" Margin="0, 0, 10, 0" Visibility="{x:Bind _home.IsNameChanged, Converter={StaticResource BoolToVisibility}, Mode=OneWay}"></TextBlock>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

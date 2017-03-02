@@ -1,0 +1,43 @@
+﻿<ContentDialog
+    x:Class="ActViz.Dialogs.AddSensorDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ActViz.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Add Sensor"
+    PrimaryButtonText="Add"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="AddSensorDialog_AddSensorClick"
+    SecondaryButtonClick="AddSensorDialog_CancelClick">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,10,5" VerticalAlignment="Center">Sensor Name:</TextBlock>
+        <TextBox x:Name="txtNameAddSensor" Grid.Column="1" Grid.Row="0" Margin="0,5" HorizontalAlignment="Stretch" IsReadOnly="False"></TextBox>
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,5,10,5" VerticalAlignment="Center">Sensor Type:</TextBlock>
+        <ComboBox x:Name="comboTypeAddSensor"                          
+                  Grid.Column="1"
+                  Grid.Row="1" 
+                  Margin="0,5"
+                  HorizontalAlignment="Stretch"
+                  ItemsSource="{x:Bind allSensorTypes}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="16" Height="16" Fill="{Binding strColor}"></Rectangle>
+                        <TextBlock Text="{Binding type}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </Grid>
+</ContentDialog>

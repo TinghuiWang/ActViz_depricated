@@ -1,0 +1,116 @@
+﻿<ContentDialog
+    x:Class="ActViz.Dialogs.AnalysisConfigDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ActViz.Dialogs"
+    xmlns:converters="using:ActViz.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Analysis Configuration"
+    PrimaryButtonText="OK"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <ContentDialog.Resources>
+        <converters:SelectedIndexToBoolean x:Key="SidToBool"></converters:SelectedIndexToBoolean>
+    </ContentDialog.Resources>
+    <Grid Margin="2, 15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="300" Width="1*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*" MinHeight="100"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Text="Annotation Files"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                    Grid.Row="1" Grid.Column="1">
+            <Button x:Name="btnAddAnnotation" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" FontSize="10"
+                Margin="1" Width="30" Height="30" Background="Transparent" 
+                Click="btnAddAnnotation_Click"></Button>
+            <Button x:Name="btnModifyAnnotation" FontFamily="Segoe MDL2 Assets" Content="&#xE713;" FontSize="10"
+                Margin="1" Width="30" Height="30" Background="Transparent" 
+                Click="btnModifyAnnotation_Click" IsEnabled="{Binding ElementName=listview_AnnotatedFiles, Path=SelectedIndex, Converter={StaticResource SidToBool}}"></Button>
+            <Button x:Name="btnDeleteAnnotation" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" FontSize="10"
+                Margin="1" Width="30" Height="30" Background="Transparent" 
+                Click="btnDeleteAnnotation_Click" IsEnabled="{Binding ElementName=listview_AnnotatedFiles, Path=SelectedIndex, Converter={StaticResource SidToBool}}"></Button>
+        </StackPanel>
+        <ListView x:Name="listview_AnnotatedFiles" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                  BorderBrush="Gray" BorderThickness="1" Margin="0, 5"
+                  ScrollViewer.HorizontalScrollMode="Disabled"
+                  ScrollViewer.VerticalScrollMode="Auto"
+                  ItemsSource="{x:Bind AnnotatedFilesList}"
+                  SelectionChanged="listview_AnnotatedFiles_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontFamily="Consolas" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding Path}" FontFamily="Consolas" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+              x:Name="gridAnnotationFileConfig" Visibility="Visible"
+              Padding="5" BorderThickness="2" BorderBrush="LightGray"
+              Margin="0, 10, 0, 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="1*" MinWidth="200"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"></TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0, 2" x:Name="txtAnnotationFileName"
+                     PlaceholderText="Name of the Annotation File" VerticalAlignment="Center"
+                     TextChanged="txtAnnotationFileName_TextChanged"></TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="File Path" VerticalAlignment="Center"></TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="0, 2"
+                 x:Name="txtAnnotationFilePath"
+                 PlaceholderText="Annotation File Path" IsReadOnly="True"></TextBox>
+            <Button Grid.Row="1" Grid.Column="2" Margin="2"
+                x:Name="btnOpenFile" Click="btnOpenFile_Click"
+                FontFamily="Segoe MDL2 Assets" Content="&#xE8E5;" FontSize="10"
+                VerticalAlignment="Stretch"></Button>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="File Path (Probability)" VerticalAlignment="Center"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="0, 2"
+                 x:Name="txtAnnotationProbFilePath"
+                 PlaceholderText="Annotation File Path" IsReadOnly="True"></TextBox>
+            <Button Grid.Row="2" Grid.Column="2" Margin="2"
+                x:Name="btnOpenProbFile" Click="btnOpenProbFile_Click"
+                FontFamily="Segoe MDL2 Assets" Content="&#xE8E5;" FontSize="10"
+                VerticalAlignment="Stretch"></Button>
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+                        Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnAdd" Width="100" Content="Add" Margin="5, 5, 0, 5" 
+                        Visibility="Collapsed" IsEnabled="False"
+                        Click="btnAdd_Click"></Button>
+                <Button x:Name="btnModify" Width="100" Content="Modify" Margin="5, 5, 0, 5" 
+                        Visibility="Collapsed" IsEnabled="False"
+                        Click="btnModify_Click"></Button>
+                <Button x:Name="btnCancel" Width="100" Content="Cancel" Margin="5, 5, 0, 5"
+                        Click="btnCancel_Click"></Button>
+            </StackPanel>
+            <ProgressBar Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                         Visibility="Collapsed" Margin="0, 4"
+                         x:Name="progbarLoadAnnotation"></ProgressBar>
+        </Grid>
+    </Grid>
+</ContentDialog>

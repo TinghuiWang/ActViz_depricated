@@ -5,4 +5,8 @@
     xmlns:local="using:ActViz"
     RequestedTheme="Light">
 
+    <!--<Application.Resources>
+        <local:Logging x:Key="appLog"></local:Logging>
+    </Application.Resources>-->
+    
 </Application>

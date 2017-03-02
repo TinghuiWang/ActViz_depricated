@@ -1,0 +1,103 @@
+﻿<Page
+    x:Class="ActViz.EventPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ActViz"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:ActViz.Converters"
+    xmlns:controls="using:ActViz.Controls"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <converters:DateTimeToString x:Key="DateTimeToString"></converters:DateTimeToString>
+        <converters:ResidentNameToColor x:Key="ResidentToColor"
+                                        residentItems="{x:Bind _home.ResidentCollection}"></converters:ResidentNameToColor>
+        <converters:ActivityNameToColor x:Key="ActivityToColor"
+                                        activityItems="{x:Bind _home.ActivityCollection}"></converters:ActivityNameToColor>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtDatasetTitle" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
+                   Text="Dataset Title" Margin="5,10,0,5" 
+                   FontFamily="Comic Sans MS" FontWeight="Bold" FontStyle="Italic" FontSize="20" />
+        <Image x:Name="floorplanImage" Grid.Column="2" Grid.Row="3" SizeChanged="floorplanImage_SizeChanged" Margin="10"></Image> 
+        <Canvas x:Name="sensorCanvas"
+                Grid.Column="2" Grid.Row="3" Margin="10"
+                SizeChanged="sensorCanvas_SizeChanged"></Canvas>
+        <Rectangle Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Fill="LightGray" x:Name="VerticalSplitter"></Rectangle>
+        <ProgressRing x:Name="LoadingProgressRing" Grid.Column="0" Grid.Row="3" Width="50" Height="50"></ProgressRing>
+        <ListView 
+            x:Name="dataListView"
+            MinWidth="150"
+            Grid.Column="0" Grid.Row="3" Margin="5"
+            BorderThickness="2" BorderBrush="#FFE8E8E8"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            ScrollViewer.HorizontalScrollMode="Enabled"
+            ItemsSource="{x:Bind _home.sensorEventCollection}"
+            SelectedIndex="{x:Bind _home.SelectedEventIndex, Mode=TwoWay}"
+            SelectionMode="Extended"
+            SelectionChanged="dataListView_SelectionChanged"
+            RightTapped="dataListView_RightTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding TimeTag, Converter={StaticResource DateTimeToString}}"/>
+                        <TextBlock Grid.Column="1" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding SensorName}" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="2" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding SensorState}"/>
+                        <TextBlock Grid.Column="3" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding OccupantId}"
+                                   Foreground="{Binding OccupantId, Converter={StaticResource ResidentToColor}}"/>
+                        <TextBlock Grid.Column="4" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding ActivityLabel}"
+                                   Foreground="{Binding ActivityLabel, Converter={StaticResource ActivityToColor}}"/>
+                        <TextBlock Grid.Column="5" FontFamily="Consolas" Margin="0,0,10,0" Text="{Binding Comments}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <CalendarDatePicker Grid.Column="0" x:Name="curEventDate" VerticalAlignment="Center" Margin="20,0,0,0" DateChanged="curEventDate_DateChanged" Width="140"/>
+            <Button Grid.Column="1" x:Name="btnPrevWeek" FontFamily="Segoe MDL2 Assets" Content="&#xE892;" Margin="5" VerticalAlignment="Center" ToolTipService.ToolTip="Previous Week" Click="btnPrevWeek_Click"></Button>
+            <Button Grid.Column="2" x:Name="btnPrevDay" FontFamily="Segoe MDL2 Assets" Content="&#xEB9E;" Margin="5" VerticalAlignment="Center" ToolTipService.ToolTip="Yesterday" Click="btnPrevDay_Click"></Button>
+            <controls:DateSlider Grid.Column="3" x:Name="DateSlider" VerticalAlignment="Center" ValueChangeCompleted="DateSlider_ValueChangeCompleted"></controls:DateSlider>
+            <StackPanel Orientation="Horizontal" Grid.Column="4" VerticalAlignment="Center">
+                <TextBlock Text="{Binding ElementName=DateSlider, Path=Value}" Width="30" TextAlignment="Center"></TextBlock>
+                <TextBlock Text="/"></TextBlock>
+                <TextBlock Text="{Binding ElementName=DateSlider, Path=Maximum}" Width="30" TextAlignment="Center"></TextBlock>
+            </StackPanel>
+            <Button Grid.Column="5" x:Name="btnNextDay" FontFamily="Segoe MDL2 Assets" Content="&#xEB9D;" Margin="5" VerticalAlignment="Center" ToolTipService.ToolTip="Tomorrow" Click="btnNextDay_Click"></Button>
+            <Button Grid.Column="6" x:Name="btnNextWeek" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Margin="5" VerticalAlignment="Center" ToolTipService.ToolTip="Next Week" Click="btnNextWeek_Click"></Button>
+            <TextBox Grid.Column="7" x:Name="txtTimeInterval" Margin="5" VerticalAlignment="Center" InputScope="TimeMinutesOrSeconds" ToolTipService.ToolTip="Play Time Interval (s)"/>
+            <Button Grid.Column="8" x:Name="btnPlay" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" Margin="5, 5, 20, 5" VerticalAlignment="Center" ToolTipService.ToolTip="Play"></Button>
+        </Grid>
+
+    </Grid>
+</Page>
