@@ -95,7 +95,6 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
-    <None Include="README.rst" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisPage.xaml.cs">
@@ -197,7 +196,6 @@
     <None Include="ActViz_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LICENSE" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
