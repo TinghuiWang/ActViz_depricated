@@ -219,6 +219,9 @@ namespace ActViz
 
         private void Sensor_PointerEnter(object sender, PointerRoutedEventArgs e)
         {
+            // No need to do anything if no event selected.
+            if (_home.SelectedEventIndex < 0) return;
+            // Update Layout
             Rectangle sensorRect = null;
             Sensor sensor = null;
             TextBlock sensorText = null;

@@ -62,7 +62,7 @@ namespace ActViz
             LoadingProgressRing.IsActive = true;
             await _home.LoadEvents();
             _home.InitSensorFireStatus();
-            _home.SelectedEventIndex = 0;
+            _home.SelectedEventIndex = -1;
             // Set Start/End of Datetime selection
             curEventDate.MinDate = _home.sensorEventCollection.FirstEventDate;
             curEventDate.MaxDate = _home.sensorEventCollection.LastEventDate;
@@ -254,6 +254,9 @@ namespace ActViz
 
         private void Sensor_PointerEnter(object sender, PointerRoutedEventArgs e)
         {
+            // No need to do anything if no event selected.
+            if (_home.SelectedEventIndex < 0) return;
+            // Update Layout
             Rectangle sensorRect = null;
             Sensor sensor = null;
             TextBlock sensorText = null;

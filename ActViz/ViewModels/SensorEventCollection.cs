@@ -68,7 +68,8 @@ namespace ActViz.ViewModels
         {
             get
             {
-                return _storage[index];
+                if (index < 0 || index >= Count) return null;
+                else return _storage[index];
             }
 
             set
