@@ -62,7 +62,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-              x:Name="gridAnnotationFileConfig" Visibility="Visible"
+              x:Name="gridAnnotationFileConfig" Visibility="Collapsed"
               Padding="5" BorderThickness="2" BorderBrush="LightGray"
               Margin="0, 10, 0, 5">
             <Grid.ColumnDefinitions>
