@@ -152,6 +152,7 @@ namespace ActViz.Dialogs
             txtAnnotationFilePath.IsEnabled = false;
             txtAnnotationProbFilePath.IsEnabled = false;
             btnOpenFile.IsEnabled = false;
+            btnOpenProbFile.IsEnabled = false;
         }
 
         private void gridAnnotationConfig_Enable()
@@ -160,11 +161,14 @@ namespace ActViz.Dialogs
             txtAnnotationFilePath.IsEnabled = true;
             txtAnnotationProbFilePath.IsEnabled = true;
             btnOpenFile.IsEnabled = true;
+            btnOpenProbFile.IsEnabled = true;
         }
 
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             btnAdd.IsEnabled = false;
+            IsPrimaryButtonEnabled = false;
+            IsSecondaryButtonEnabled = false;
             gridAnnotationConfig_Disable();
             progbarLoadAnnotation.IsEnabled = true;
             progbarLoadAnnotation.IsIndeterminate = true;
@@ -186,6 +190,8 @@ namespace ActViz.Dialogs
             this.listview_AnnotatedFiles.IsEnabled = true;
             progbarLoadAnnotation.IsEnabled = false;
             progbarLoadAnnotation.Visibility = Visibility.Collapsed;
+            IsPrimaryButtonEnabled = true;
+            IsSecondaryButtonEnabled = true;
         }
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
