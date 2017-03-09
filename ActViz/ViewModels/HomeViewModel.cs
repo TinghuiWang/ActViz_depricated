@@ -20,6 +20,13 @@ namespace ActViz.ViewModels
         private Logging appLog = Logging.Instance;
         private Dataset _Dataset;
 
+        private string _selectedAnnotationName;
+        public string SelectedAnnotationName
+        {
+            get { return _selectedAnnotationName; }
+            set { SetProperty(ref _selectedAnnotationName, value); }
+        }
+
         private SensorEventCollection _sensorEventCollection = new SensorEventCollection();
         public SensorEventCollection sensorEventCollection { get { return _sensorEventCollection; } set { SetProperty(ref _sensorEventCollection, value); } }
 

@@ -453,6 +453,8 @@ namespace ActViz
             _flyoutProbList.Clear();
             ListViewItem _predictionListViewItem = GetAncestorOfType<ListViewItem>(sender as FrameworkElement);
             ClassifiedLabelViewModel _curPrediction = _predictionListViewItem.Content as ClassifiedLabelViewModel;
+            ListView _predictionListView = GetAncestorOfType<ListView>(_predictionListViewItem as FrameworkElement);
+            _home.SelectedAnnotationName = _AnnotatedFilesList[_predictionListView.Items.IndexOf(_curPrediction)].Name;
             List<Tuple<string, double>> probabilityList = _curPrediction.ActivityProbability;
             if(probabilityList != null && probabilityList.Count != 0)
             {

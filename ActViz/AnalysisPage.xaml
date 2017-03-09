@@ -21,23 +21,26 @@
         <converters:BoolToVisibility x:Key="BoolToVisibility"></converters:BoolToVisibility>
         <converters:DoubleToPercent x:Key="DoubleToPercent"></converters:DoubleToPercent>
         <Flyout x:Name="flyoutActivityProba" x:Key="flyoutActivityProba" Placement="Right">
-            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+            <StackPanel Orientation="Vertical" Margin="0, 5, 0, 0">
+                <TextBlock Text="{x:Bind _home.SelectedAnnotationName, Mode=OneWay}" HorizontalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+                <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                   x:Name="ActivityListView"  Margin="10"
                   SelectionMode="None"
                   ItemsSource="{x:Bind _flyoutProbList, Mode=OneWay}"
                   BorderBrush="LightGray" BorderThickness="1">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Consolas" Margin="0,0,10,0" VerticalAlignment="Center"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Consolas" Margin="0,0,10,0" VerticalAlignment="Center"
                                    Text="{Binding Item2, Converter={StaticResource DoubleToPercent}}"/>
-                            <TextBlock FontFamily="Consolas" Margin="0,0,10,0" VerticalAlignment="Center"
+                                <TextBlock FontFamily="Consolas" Margin="0,0,10,0" VerticalAlignment="Center"
                                    Text="{Binding Item1}"
                                    Foreground="{Binding Item1, Converter={StaticResource ActivityToColor}}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
         </Flyout>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10">
