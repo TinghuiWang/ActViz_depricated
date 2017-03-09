@@ -434,6 +434,8 @@ namespace ActViz
         {
             AnalysisConfigDialog dialog = new AnalysisConfigDialog(this._AnnotatedFilesList);
             await dialog.ShowAsync();
+            // Reload Collection
+            await _home.LoadDateAsync(curEventDate.Date.Value.DateTime, AnnotatedFilesList);
         }
 
         private async void btnFilter_Click(object sender, RoutedEventArgs e)
