@@ -337,37 +337,41 @@ namespace ActViz
                 canvasSensorEntry.Item2.Fill = new SolidColorBrush(Colors.White);
                 canvasSensorEntry.Item2.Opacity = 0.998;
             }
-            // Find the total timeElapse
-            foreach (KeyValuePair<string, int> entry in sensorLastFiredEventList)
+            if(_home.sensorEventCollection.Count > 0)
             {
-                // Already drawn 6
-                if (sensorDrawn > maxSensor) break;
-                // No event
-                if (entry.Value == -1) break;
-                // Find time elapse of current entry
-                DateTime entryTime = _home.sensorEventCollection[entry.Value].TimeTag;
-                timeElapse = Convert.ToInt32((_home.SelectedEvent.TimeTag - entryTime).TotalSeconds);
-                // If Time elapsed greater than max time, stop here
-                if (timeElapse > maxTime) break;
-                // Otherwise, add it to sensorDrawList
-                sensorDrawList.Add(entry);
-                // Add Sensor Count
-                sensorDrawn++;
-            }
-            maxTimeElapse = timeElapse + 1;
-            timeElapse = 0;
-            foreach(KeyValuePair<string, int> entry in sensorDrawList) {
-                // Find time elapse of current entry
-                DateTime entryTime = _home.sensorEventCollection[entry.Value].TimeTag;
-                timeElapse = Convert.ToInt32((_home.SelectedEvent.TimeTag - entryTime).TotalSeconds);
-                // Update Sensor Drawn List
-                // Find Tuple in List
-                Tuple<Sensor, Rectangle, TextBlock> canvasSensorEntry = canvasSensorList.Find(x => x.Item1.name == entry.Key);
-                if(canvasSensorEntry != null)
+                // Find the total timeElapse
+                foreach (KeyValuePair<string, int> entry in sensorLastFiredEventList)
                 {
-                    Color sensorTypeColor = SensorType.GetColorFromSensorType(canvasSensorEntry.Item1.type);
-                    canvasSensorEntry.Item2.Fill = new SolidColorBrush(sensorTypeColor);
-                    canvasSensorEntry.Item2.Opacity = (1 - ((double)timeElapse) / maxTimeElapse) * 0.6 + 0.4;
+                    // Already drawn 6
+                    if (sensorDrawn > maxSensor) break;
+                    // No event
+                    if (entry.Value == -1) break;
+                    // Find time elapse of current entry
+                    DateTime entryTime = _home.sensorEventCollection.UnfilteredStorage[entry.Value].TimeTag;
+                    timeElapse = Convert.ToInt32((_home.SelectedEvent.TimeTag - entryTime).TotalSeconds);
+                    // If Time elapsed greater than max time, stop here
+                    if (timeElapse > maxTime) break;
+                    // Otherwise, add it to sensorDrawList
+                    sensorDrawList.Add(entry);
+                    // Add Sensor Count
+                    sensorDrawn++;
+                }
+                maxTimeElapse = timeElapse + 1;
+                timeElapse = 0;
+                foreach (KeyValuePair<string, int> entry in sensorDrawList)
+                {
+                    // Find time elapse of current entry
+                    DateTime entryTime = _home.sensorEventCollection.UnfilteredStorage[entry.Value].TimeTag;
+                    timeElapse = Convert.ToInt32((_home.SelectedEvent.TimeTag - entryTime).TotalSeconds);
+                    // Update Sensor Drawn List
+                    // Find Tuple in List
+                    Tuple<Sensor, Rectangle, TextBlock> canvasSensorEntry = canvasSensorList.Find(x => x.Item1.name == entry.Key);
+                    if (canvasSensorEntry != null)
+                    {
+                        Color sensorTypeColor = SensorType.GetColorFromSensorType(canvasSensorEntry.Item1.type);
+                        canvasSensorEntry.Item2.Fill = new SolidColorBrush(sensorTypeColor);
+                        canvasSensorEntry.Item2.Opacity = (1 - ((double)timeElapse) / maxTimeElapse) * 0.6 + 0.4;
+                    }
                 }
             }
             sensorCanvas.InvalidateArrange();
