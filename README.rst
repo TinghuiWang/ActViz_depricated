@@ -1,4 +1,11 @@
-﻿ActViz: Smart Home Activity Visualizer (UWP)
+﻿.. image:: https://readthedocs.org/projects/actviz/badge/?version=latest
+   :target: http://actviz.readthedocs.io
+
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+   :target: https://github.com/TinghuiWang/ActivityLearning/blob/master/LICENSE
+
+
+ActViz: Smart Home Activity Visualizer (UWP)
 ============================================
 
 What is ActViz
@@ -11,4 +18,6 @@ It is designed to help annotation smart home datasets and error analysis for aut
 Documentation
 -------------
 
-Under construction.
+Please see documentation_ for more information.
+
+.. _documentation: http://actviz.readthedocs.io
